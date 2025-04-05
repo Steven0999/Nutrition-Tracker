@@ -2,55 +2,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Food Log</title>
+  <title>Nutrition Tracker</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button class="nav-button" onclick="switchTab('log')">Food Log</button>
-  <button class="nav-button" onclick="switchTab('goals')">Goals</button>
 
-  <div id="log" class="tab active">
-    <h2>Log Your Food</h2>
-    <div class="input-group">
-      <label>Food: <input type="text" id="foodName"></label>
-    </div>
-    <div class="input-group">
-      <label>Calories: <input type="number" id="calories"></label>
-    </div>
-    <div class="input-group">
-      <label>Protein (g): <input type="number" id="protein"></label>
-    </div>
-    <div class="input-group">
-      <label>Quantity: <input type="number" id="quantity" value="1" min="1"></label>
-    </div>
-    <button onclick="logFood()">Log Food</button>
-    <button onclick="resetLog()">Reset Log</button>
+  <h1>Nutrition Tracker</h1>
 
-    <h3>Food Log</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Food</th>
-          <th>Calories</th>
-          <th>Protein (g)</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
-      <tbody id="foodLog"></tbody>
-    </table>
-    <div class="totals" id="totals"></div>
-    <div class="totals" id="remaining"></div>
-  </div>
+  <input type="text" id="food" placeholder="Food name" />
+  <input type="number" id="calories" placeholder="Calories" />
+  <input type="number" id="protein" placeholder="Protein (g)" />
+  <input type="number" id="quantity" value="1" min="1" placeholder="Quantity" />
+  <button onclick="addEntry()">Add Entry</button>
+  <button class="reset-btn" onclick="resetLog()">Reset Log</button>
 
-  <div id="goals" class="tab">
-    <h2>Set Your Goals</h2>
-    <div class="input-group">
-      <label>Calorie Goal: <input type="number" id="calorieGoal"></label>
-    </div>
-    <div class="input-group">
-      <label>Protein Goal (g): <input type="number" id="proteinGoal"></label>
-    </div>
-    <button onclick="saveGoals()">Save Goals</button>
-    <div class="totals" id="goalsSummary"></div>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Calories</th>
+        <th>Protein (g)</th>
+        <th>Qty</th>
+      </tr>
+    </thead>
+    <tbody id="logBody"></tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td id="totalCalories">0</td>
+        <td id="totalProtein">0</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="script.js"></script>
 </body>
 </html>
