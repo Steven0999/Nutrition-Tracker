@@ -109,7 +109,6 @@ function updateTotals() {
 
   document.getElementById('totalCalories').textContent = totalCalories;
   document.getElementById('totalProtein').textContent = totalProtein;
-
   document.getElementById('remainingCalories').textContent = goals.calories - totalCalories;
   document.getElementById('remainingProtein').textContent = goals.protein - totalProtein;
 }
@@ -152,6 +151,36 @@ function renderHistory() {
 
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
+}
+
+async function startScanner() {
+  const code = prompt('Enter barcode number manually:');
+  if (code) fetchNutritionFromBarcode(code);
+}
+
+async function fetchNutritionFromBarcode(barcode) {
+  try {
+    const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
+    const data = await response.json();
+
+    if (data.status === 1) {
+      const product = data.product;
+      const name = product.product_name || 'Unnamed';
+      const nutriments = product.nutriments || {};
+      const calories = Math.round(nutriments['energy-kcal_100g'] || 0);
+      const protein = Math.round(nutriments['proteins_100g'] || 0);
+
+      document.getElementById('foodName').value = name;
+      document.getElementById('foodCalories').value = calories;
+      document.getElementById('foodProtein').value = protein;
+
+      document.getElementById('barcodeResult').textContent = `Found: ${name}`;
+    } else {
+      alert('Product not found in Open Food Facts.');
+    }
+  } catch (err) {
+    console.error('Fetch error:', err);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
