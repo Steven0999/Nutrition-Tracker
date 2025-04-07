@@ -8,13 +8,17 @@
 <body>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('trackerTab')">Tracker</button>
-    <button class="tab-btn" onclick="switchTab('databaseTab')">Food Database</button>
+    <button class="tab-btn active" onclick="switchTab(event, 'trackerTab')">Tracker</button>
+    <button class="tab-btn" onclick="switchTab(event, 'createTab')">Create Food</button>
+    <button class="tab-btn" onclick="switchTab(event, 'databaseTab')">Food Database</button>
   </div>
 
+  <!-- Tracker Page -->
   <div id="trackerTab" class="tab-content active">
     <h1>Nutrition Tracker</h1>
-    <select id="foodSelect"></select>
+    <select id="foodSelect">
+      <option value="">Select Item</option>
+    </select>
     <input type="number" id="quantity" value="1" min="1" placeholder="Quantity" />
     <button onclick="addEntry()">Add Entry</button>
     <button class="reset-btn" onclick="resetLog()">Reset Log</button>
@@ -40,13 +44,18 @@
     </table>
   </div>
 
-  <div id="databaseTab" class="tab-content">
-    <h1>Food Database</h1>
+  <!-- Create Food Page -->
+  <div id="createTab" class="tab-content">
+    <h1>Create New Food</h1>
     <input type="text" id="newFoodName" placeholder="Food name" />
     <input type="number" id="newCalories" placeholder="Calories" />
     <input type="number" id="newProtein" placeholder="Protein (g)" />
-    <button onclick="addFoodToDatabase()">Create New Food</button>
+    <button onclick="addFoodAndReturn()">Save Food</button>
+  </div>
 
+  <!-- Database Page -->
+  <div id="databaseTab" class="tab-content">
+    <h1>Food Database</h1>
     <table>
       <thead>
         <tr>
