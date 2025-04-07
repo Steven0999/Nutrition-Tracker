@@ -10,17 +10,18 @@
   <div class="container">
     <h1>Nutrition Tracker</h1>
 
-    <!-- Tab navigation -->
+    <!-- Navigation Tabs -->
     <div class="tabs">
-      <button onclick="showTab(0)">Tracker</button>
-      <button onclick="showTab(1)">Create Food</button>
-      <button onclick="showTab(2)">Goals</button>
-      <button onclick="showTab(3)">History</button>
+      <button class="tablink" onclick="openTab(event, 'Tracker')">Tracker</button>
+      <button class="tablink" onclick="openTab(event, 'CreateFood')">Create Food</button>
+      <button class="tablink" onclick="openTab(event, 'Goals')">Goals</button>
+      <button class="tablink" onclick="openTab(event, 'History')">History</button>
     </div>
 
-    <!-- Tab content -->
-    <div class="tabContent active">
+    <!-- Tab Content -->
+    <div id="Tracker" class="tabcontent">
       <h2>Tracker</h2>
+      <!-- Tracker content -->
       <div class="tracker">
         <div class="food-selection">
           <label for="foodSelect">Select Food:</label>
@@ -41,7 +42,7 @@
       </div>
     </div>
 
-    <div class="tabContent">
+    <div id="CreateFood" class="tabcontent">
       <h2>Create Food</h2>
       <div class="create-food-form">
         <label for="newFoodName">Food Name:</label>
@@ -54,7 +55,7 @@
       </div>
     </div>
 
-    <div class="tabContent">
+    <div id="Goals" class="tabcontent">
       <h2>Goals</h2>
       <div class="goal-form">
         <label for="goalCalories">Set Calorie Goal:</label>
@@ -66,7 +67,7 @@
       <div id="goalDisplay"></div>
     </div>
 
-    <div class="tabContent">
+    <div id="History" class="tabcontent">
       <h2>History</h2>
       <div id="historyData">
         <p>No data saved yet.</p>
@@ -76,5 +77,6 @@
   </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
