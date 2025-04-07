@@ -8,8 +8,15 @@ const totalCalories = document.getElementById('totalCalories');
 const totalProtein = document.getElementById('totalProtein');
 const foodDatabaseBody = document.getElementById('foodDatabaseBody');
 
+function switchTab(event, tabId) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
 function updateFoodDropdown() {
-  foodSelect.innerHTML = '';
+  foodSelect.innerHTML = '<option value="">Select Item</option>';
   foodDatabase.forEach(food => {
     const option = document.createElement('option');
     option.value = food.name;
@@ -43,10 +50,10 @@ function updateTable() {
 function addEntry() {
   const name = foodSelect.value;
   const qty = parseInt(qtyInput.value);
-
   const food = foodDatabase.find(f => f.name === name);
+
   if (!food || isNaN(qty)) {
-    alert('Invalid food or quantity');
+    alert('Please select a valid food and quantity.');
     return;
   }
 
@@ -64,24 +71,29 @@ function resetLog() {
   }
 }
 
-function addFoodToDatabase() {
+function addFoodAndReturn() {
   const name = document.getElementById('newFoodName').value.trim();
   const calories = parseFloat(document.getElementById('newCalories').value);
   const protein = parseFloat(document.getElementById('newProtein').value);
 
   if (!name || isNaN(calories) || isNaN(protein)) {
-    alert('Fill out all food fields');
+    alert('Please complete all fields.');
     return;
   }
 
   foodDatabase.push({ name, calories, protein });
   localStorage.setItem('foodDatabase', JSON.stringify(foodDatabase));
-  updateFoodDropdown();
-  updateFoodTable();
 
   document.getElementById('newFoodName').value = '';
   document.getElementById('newCalories').value = '';
   document.getElementById('newProtein').value = '';
+
+  updateFoodDropdown();
+  updateFoodTable();
+
+  // Go back to tracker tab
+  const trackerBtn = document.querySelector('.tab-btn:nth-child(1)');
+  switchTab({ target: trackerBtn }, 'trackerTab');
 }
 
 function updateFoodTable() {
@@ -103,14 +115,6 @@ function deleteFood(index) {
   localStorage.setItem('foodDatabase', JSON.stringify(foodDatabase));
   updateFoodDropdown();
   updateFoodTable();
-}
-
-// Tab switching
-function switchTab(id) {
-  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
 }
 
 // On load
