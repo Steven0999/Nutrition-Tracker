@@ -1,9 +1,9 @@
 :root {
   --bg-light: white;
   --bg-dark: black;
-  --text-light: black;
+  --text-light: orange;
   --text-dark: grey;
-  --primary: orange;
+  --primary: grey;
   --accent: #2196F3;
   --danger: #e74c3c;
   --border-radius: 10px;
@@ -37,7 +37,7 @@ body {
 }
 
 .tabs button {
-  background: #fff;
+  background: orange;
   border: none;
   padding: 10px 20px;
   border-radius: var(--border-radius);
@@ -47,7 +47,7 @@ body {
 }
 
 .tabs button:hover {
-  background: #e0f7e9;
+  background: grey;
 }
 
 .tabContent {
@@ -70,7 +70,7 @@ input, select, button {
 }
 
 button {
-  background-color: var(--primary);
+  background-color: orange;
   color: white;
   border: none;
   cursor: pointer;
@@ -79,7 +79,7 @@ button {
 }
 
 button:hover {
-  background-color: #388e3c;
+  background-color: grey;
 }
 
 ul {
@@ -117,14 +117,14 @@ li .delete {
 
 .dark-mode {
   background-color: var(--bg-dark);
-  color: var(--text-dark);
+  color: orange;
 }
 
 .dark-mode input,
 .dark-mode select,
 .dark-mode button {
-  background-color: #333;
-  color: var(--text-dark);
+  background-color: orange;
+  color: grey;
   border: 1px solid #555;
 }
 
