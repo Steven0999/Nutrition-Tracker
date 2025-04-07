@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
 }
 
@@ -9,10 +9,14 @@ h1 {
   text-align: center;
 }
 
-input, button {
+input, select, button {
   width: 100%;
   padding: 10px;
   margin: 5px 0;
+}
+
+button {
+  cursor: pointer;
 }
 
 table {
@@ -34,4 +38,30 @@ tfoot {
   background-color: #f44336;
   color: white;
   border: none;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  padding: 10px;
+  flex: 1;
+  border: none;
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+.tab-btn.active {
+  background-color: #bbb;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
 }
