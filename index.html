@@ -10,6 +10,7 @@
     <button onclick="switchTab('tracker')">Tracker</button>
     <button onclick="switchTab('goals')">Set Goals</button>
     <button onclick="switchTab('database')">Food Database</button>
+    <button onclick="switchTab('history')">History</button>
   </div>
 
   <!-- Tracker Tab -->
@@ -45,9 +46,21 @@
     <input type="text" id="foodName" placeholder="Food Name" />
     <input type="number" id="foodCalories" placeholder="Calories" />
     <input type="number" id="foodProtein" placeholder="Protein" />
-    <button onclick="addFoodToDatabase()">Add Food</button>
+    <button onclick="addFoodToDatabase()">Save Food</button>
     <ul id="foodList"></ul>
   </div>
+
+  <!-- History Tab -->
+  <div id="history" class="tabContent">
+    <h2>Weekly/Monthly Tracking</h2>
+    <select id="historyRange" onchange="renderHistory()">
+      <option value="week">This Week</option>
+      <option value="month">This Month</option>
+    </select>
+    <div id="historyData"></div>
+  </div>
+
+  <button id="toggleMode" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
   <script src="script.js"></script>
 </body>
