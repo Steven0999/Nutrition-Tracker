@@ -2,8 +2,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nutrition Tracker</title>
+  <title>Nutrition Tracker with Barcode</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
 
@@ -51,6 +52,8 @@
     <input type="number" id="newCalories" placeholder="Calories" />
     <input type="number" id="newProtein" placeholder="Protein (g)" />
     <button onclick="addFoodAndReturn()">Save Food</button>
+    <button onclick="startScanner()">Scan Barcode</button>
+    <div id="reader" style="width: 100%; margin-top: 20px;"></div>
   </div>
 
   <!-- Database Page -->
