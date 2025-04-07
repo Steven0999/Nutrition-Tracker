@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nutrition Tracker with Barcode</title>
+  <title>Nutrition Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
@@ -14,9 +14,13 @@
     <button class="tab-btn" onclick="switchTab(event, 'databaseTab')">Food Database</button>
   </div>
 
-  <!-- Tracker Page -->
+  <!-- Tracker Tab -->
   <div id="trackerTab" class="tab-content active">
     <h1>Nutrition Tracker</h1>
+
+    <label>Calorie Goal: <input type="number" id="calorieGoal" placeholder="e.g. 2000"></label>
+    <label>Protein Goal: <input type="number" id="proteinGoal" placeholder="e.g. 150"></label>
+
     <select id="foodSelect">
       <option value="">Select Item</option>
     </select>
@@ -29,23 +33,30 @@
         <tr>
           <th>Food</th>
           <th>Calories</th>
-          <th>Protein (g)</th>
+          <th>Protein</th>
           <th>Qty</th>
+          <th>Remove</th>
         </tr>
       </thead>
       <tbody id="logBody"></tbody>
       <tfoot>
         <tr>
-          <td>Total</td>
+          <td><strong>Total</strong></td>
           <td id="totalCalories">0</td>
           <td id="totalProtein">0</td>
-          <td></td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td><strong>Remaining</strong></td>
+          <td id="remainingCalories">0</td>
+          <td id="remainingProtein">0</td>
+          <td colspan="2"></td>
         </tr>
       </tfoot>
     </table>
   </div>
 
-  <!-- Create Food Page -->
+  <!-- Create Food Tab -->
   <div id="createTab" class="tab-content">
     <h1>Create New Food</h1>
     <input type="text" id="newFoodName" placeholder="Food name" />
@@ -56,7 +67,7 @@
     <div id="reader" style="width: 100%; margin-top: 20px;"></div>
   </div>
 
-  <!-- Database Page -->
+  <!-- Food Database Tab -->
   <div id="databaseTab" class="tab-content">
     <h1>Food Database</h1>
     <table>
@@ -64,7 +75,7 @@
         <tr>
           <th>Food</th>
           <th>Calories</th>
-          <th>Protein (g)</th>
+          <th>Protein</th>
           <th>Delete</th>
         </tr>
       </thead>
