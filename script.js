@@ -1,13 +1,13 @@
-// Tab switching
 function switchTab(tabId) {
   document.querySelectorAll('.tabContent').forEach(tab => tab.style.display = 'none');
   document.getElementById(tabId).style.display = 'block';
 }
-switchTab('tracker'); // Default tab
+switchTab('tracker');
 
 let foodDatabase = JSON.parse(localStorage.getItem('foodDatabase')) || [];
 let foodLog = JSON.parse(localStorage.getItem('foodLog')) || [];
 let goals = JSON.parse(localStorage.getItem('goals')) || { calories: 0, protein: 0 };
+let history = JSON.parse(localStorage.getItem('history')) || {};
 
 function updateFoodSelect() {
   const select = document.getElementById('foodSelect');
@@ -28,9 +28,6 @@ function addFoodToDatabase() {
   if (name && calories && protein) {
     foodDatabase.push({ name, calories, protein });
     localStorage.setItem('foodDatabase', JSON.stringify(foodDatabase));
-    document.getElementById('foodName').value = '';
-    document.getElementById('foodCalories').value = '';
-    document.getElementById('foodProtein').value = '';
     updateFoodList();
     updateFoodSelect();
   }
@@ -63,12 +60,15 @@ function addFoodLog() {
 
   if (!isNaN(index) && quantity > 0) {
     const food = foodDatabase[index];
-    foodLog.push({
+    const entry = {
       name: food.name,
       calories: food.calories * quantity,
-      protein: food.protein * quantity
-    });
+      protein: food.protein * quantity,
+      date: new Date().toLocaleDateString('en-GB')
+    };
+    foodLog.push(entry);
     localStorage.setItem('foodLog', JSON.stringify(foodLog));
+    logToHistory(entry);
     updateLogList();
     updateTotals();
   }
@@ -112,6 +112,46 @@ function updateTotals() {
 
   document.getElementById('remainingCalories').textContent = goals.calories - totalCalories;
   document.getElementById('remainingProtein').textContent = goals.protein - totalProtein;
+}
+
+function logToHistory(entry) {
+  const date = entry.date;
+  if (!history[date]) history[date] = { calories: 0, protein: 0 };
+  history[date].calories += entry.calories;
+  history[date].protein += entry.protein;
+  localStorage.setItem('history', JSON.stringify(history));
+}
+
+function renderHistory() {
+  const range = document.getElementById('historyRange').value;
+  const now = new Date();
+  const result = Object.entries(history).filter(([dateStr]) => {
+    const [day, month, year] = dateStr.split('/');
+    const date = new Date(`${year}-${month}-${day}`);
+    if (range === 'week') {
+      const weekAgo = new Date(now);
+      weekAgo.setDate(now.getDate() - 7);
+      return date >= weekAgo && date <= now;
+    } else {
+      return date.getMonth() === now.getMonth();
+    }
+  });
+
+  let totalCal = 0, totalProt = 0;
+  result.forEach(([_, data]) => {
+    totalCal += data.calories;
+    totalProt += data.protein;
+  });
+
+  const avgCal = Math.round(totalCal / result.length || 1);
+  const avgProt = Math.round(totalProt / result.length || 1);
+
+  document.getElementById('historyData').innerHTML =
+    `<p>Average Calories: ${avgCal}</p><p>Average Protein: ${avgProt}g</p>`;
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
