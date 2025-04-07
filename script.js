@@ -91,7 +91,6 @@ function addFoodAndReturn() {
   updateFoodDropdown();
   updateFoodTable();
 
-  // Go back to tracker tab
   const trackerBtn = document.querySelector('.tab-btn:nth-child(1)');
   switchTab({ target: trackerBtn }, 'trackerTab');
 }
@@ -117,7 +116,34 @@ function deleteFood(index) {
   updateFoodTable();
 }
 
-// On load
+async function startScanner() {
+  const html5QrCode = new Html5Qrcode("reader");
+  const config = { fps: 10, qrbox: 250 };
+  await html5QrCode.start(
+    { facingMode: "environment" },
+    config,
+    async (decodedText) => {
+      html5QrCode.stop();
+      fetchFoodFromBarcode(decodedText);
+    },
+    errorMessage => {}
+  );
+}
+
+async function fetchFoodFromBarcode(barcode) {
+  const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
+  const data = await response.json();
+
+  if (data.status === 1) {
+    const product = data.product;
+    document.getElementById('newFoodName').value = product.product_name || '';
+    document.getElementById('newCalories').value = product.nutriments["energy-kcal_100g"] || '';
+    document.getElementById('newProtein').value = product.nutriments.proteins_100g || '';
+  } else {
+    alert("Food not found. Please enter manually.");
+  }
+}
+
 updateFoodDropdown();
 updateTable();
 updateFoodTable();
