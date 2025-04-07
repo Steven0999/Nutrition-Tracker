@@ -1,134 +1,94 @@
-:root {
-  --bg-light: white;
-  --bg-dark: black;
-  --text-light: orange;
-  --text-dark: grey;
-  --primary: grey;
-  --accent: #2196F3;
-  --danger: #e74c3c;
-  --border-radius: 10px;
-  --padding: 10px;
-  --shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-light);
+  background-color: #333;
+  color: #ddd;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
 }
 
 .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
   padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  background-color: #222;
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  color: #ff7f00;
 }
 
 .tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  background: var(--primary);
-  padding: 10px;
-  border-bottom: 2px solid #ccc;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .tabs button {
-  background: orange;
+  background-color: #ff7f00;
   border: none;
+  color: white;
   padding: 10px 20px;
-  border-radius: var(--border-radius);
   cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+  border-radius: 5px;
 }
 
 .tabs button:hover {
-  background: grey;
+  background-color: #ff5f00;
 }
 
 .tabContent {
   display: none;
-  padding: 20px;
-  animation: fadeIn 0.4s ease;
 }
 
 .tabContent.active {
   display: block;
 }
 
-input, select, button {
-  padding: 10px;
-  margin: 8px 0;
-  width: 100%;
-  border-radius: var(--border-radius);
-  border: 1px solid #ccc;
-  font-size: 1em;
-}
-
 button {
-  background-color: orange;
-  color: white;
+  background-color: #ff7f00;
   border: none;
+  color: white;
+  padding: 10px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: grey;
+  background-color: #ff5f00;
+}
+
+input[type="number"], input[type="text"], select {
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #555;
+  color: white;
+}
+
+.delete {
+  background-color: #e44e4e;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.delete:hover {
+  background-color: #d13d3d;
+}
+
+#totals p {
+  margin: 5px 0;
 }
 
 ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
 
-li {
-  background: #fff;
-  margin: 5px 0;
-  padding: var(--padding);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-li .delete {
-  background: var(--danger);
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-}
-
-.totals, #historyData {
-  margin-top: 20px;
-  background: #fff;
-  padding: 15px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-}
-
-.dark-mode {
-  background-color: var(--bg-dark);
-  color: orange;
-}
-
-.dark-mode input,
-.dark-mode select,
-.dark-mode button {
-  background-color: orange;
-  color: grey;
-  border: 1px solid #555;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+.goal-form input {
+  margin-right: 10px;
 }
