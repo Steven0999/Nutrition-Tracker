@@ -1,6 +1,11 @@
 let foodLog = JSON.parse(localStorage.getItem('foodLog')) || [];
 let foodDatabase = JSON.parse(localStorage.getItem('foodDatabase')) || [];
 
+let goals = {
+  calories: parseInt(localStorage.getItem('goalCalories')) || 0,
+  protein: parseInt(localStorage.getItem('goalProtein')) || 0
+};
+
 function switchTab(event, tabId) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -50,12 +55,8 @@ function updateTable() {
 
   totalCaloriesEl.textContent = totalCal;
   totalProteinEl.textContent = totalPro;
-
-  const calorieGoal = parseFloat(document.getElementById('calorieGoal').value) || 0;
-  const proteinGoal = parseFloat(document.getElementById('proteinGoal').value) || 0;
-
-  remainingCaloriesEl.textContent = Math.max(calorieGoal - totalCal, 0);
-  remainingProteinEl.textContent = Math.max(proteinGoal - totalPro, 0);
+  remainingCaloriesEl.textContent = Math.max(goals.calories - totalCal, 0);
+  remainingProteinEl.textContent = Math.max(goals.protein - totalPro, 0);
 }
 
 function addEntry() {
@@ -158,8 +159,21 @@ async function fetchFoodFromBarcode(barcode) {
   }
 }
 
-document.getElementById('calorieGoal').addEventListener('input', updateTable);
-document.getElementById('proteinGoal').addEventListener('input', updateTable);
+function saveGoals() {
+  const calInput = parseInt(document.getElementById('goalCaloriesInput').value);
+  const proInput = parseInt(document.getElementById('goalProteinInput').value);
+  if (!isNaN(calInput)) {
+    goals.calories = calInput;
+    localStorage.setItem('goalCalories', calInput);
+  }
+  if (!isNaN(proInput)) {
+    goals.protein = proInput;
+    localStorage.setItem('goalProtein', proInput);
+  }
+  alert("Goals saved!");
+  updateTable();
+  switchTab({ target: document.querySelector('.tab-btn') }, 'trackerTab');
+}
 
 updateFoodDropdown();
 updateFoodTable();
