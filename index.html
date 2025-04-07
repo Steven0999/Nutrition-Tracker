@@ -1,33 +1,62 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nutrition Tracker with Graph</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Tracker</title>
+
+    <!-- Include QuaggaJS for barcode scanning -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(event, 'trackerTab')">Tracker</button>
-    <button class="tab-btn" onclick="switchTab(event, 'createTab')">Create Food</button>
-    <button class="tab-btn" onclick="switchTab(event, 'databaseTab')">Food Database</button>
-    <button class="tab-btn" onclick="switchTab(event, 'goalsTab')">Set Goals</button>
-    <button class="tab-btn" onclick="switchTab(event, 'graphTab')">Graphs</button>
-  </div>
-
-  <!-- Other Tabs (Tracker, Create, Database, Goals) would go here -->
-
-  <!-- Graph Tab -->
-  <div id="graphTab" class="tab-content">
-    <h1>Progress Graphs</h1>
-    <div class="graph-tabs">
-      <button onclick="showGraph('calories')">Calories</button>
-      <button onclick="showGraph('protein')">Protein</button>
+    <h1>Nutrition Tracker</h1>
+    
+    <div class="tabs">
+        <button onclick="switchTab('home')">Home</button>
+        <button onclick="switchTab('foodDatabase')">Food Database</button>
+        <button onclick="switchTab('goalSetting')">Set Goals</button>
+        <button onclick="switchTab('tracking')">Tracking</button>
     </div>
-    <canvas id="progressChart"></canvas>
-  </div>
 
-  <script src="script.js"></script>
+    <div id="home" class="tabContent">
+        <h2>Log Your Food</h2>
+        <button onclick="startScanner()">Start Scanning</button>
+        <div id="scanner-container" style="width: 100%; height: 400px; border: 1px solid #ccc; margin-top: 10px;"></div>
+        <div id="tracking-info"></div>
+    </div>
+
+    <div id="foodDatabase" class="tabContent">
+        <h2>Food Database</h2>
+        <button onclick="showCreateFoodForm()">Create New Food</button>
+        <div id="food-list"></div>
+        <div id="createFoodForm" style="display:none;">
+            <input type="text" id="newFoodName" placeholder="Food Name" />
+            <input type="number" id="newFoodCalories" placeholder="Calories" />
+            <input type="number" id="newFoodProtein" placeholder="Protein" />
+            <button onclick="saveNewFood()">Save</button>
+        </div>
+    </div>
+
+    <div id="goalSetting" class="tabContent">
+        <h2>Set Your Goals</h2>
+        <input type="number" id="goalCalories" placeholder="Daily Calorie Goal" />
+        <input type="number" id="goalProtein" placeholder="Daily Protein Goal" />
+        <button onclick="saveGoals()">Save Goals</button>
+    </div>
+
+    <div id="tracking" class="tabContent">
+        <h2>Tracking</h2>
+        <div id="weekly-averages"></div>
+        <div id="monthly-averages"></div>
+        <canvas id="caloriesChart" width="400" height="200"></canvas>
+        <canvas id="proteinChart" width="400" height="200"></canvas>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
