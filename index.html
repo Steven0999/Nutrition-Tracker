@@ -3,39 +3,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nutrition Tracker</title>
-  <link rel="stylesheet" href="Page.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1>Nutrition Tracker</h1>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('trackerTab')">Tracker</button>
+    <button class="tab-btn" onclick="switchTab('databaseTab')">Food Database</button>
+  </div>
 
-  <input type="text" id="food" placeholder="Food name" />
-  <input type="number" id="calories" placeholder="Calories" />
-  <input type="number" id="protein" placeholder="Protein (g)" />
-  <input type="number" id="quantity" value="1" min="1" placeholder="Quantity" />
-  <button onclick="addEntry()">Add Entry</button>
-  <button class="reset-btn" onclick="resetLog()">Reset Log</button>
+  <div id="trackerTab" class="tab-content active">
+    <h1>Nutrition Tracker</h1>
+    <select id="foodSelect"></select>
+    <input type="number" id="quantity" value="1" min="1" placeholder="Quantity" />
+    <button onclick="addEntry()">Add Entry</button>
+    <button class="reset-btn" onclick="resetLog()">Reset Log</button>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Food</th>
-        <th>Calories</th>
-        <th>Protein (g)</th>
-        <th>Qty</th>
-      </tr>
-    </thead>
-    <tbody id="logBody"></tbody>
-    <tfoot>
-      <tr>
-        <td>Total</td>
-        <td id="totalCalories">0</td>
-        <td id="totalProtein">0</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Calories</th>
+          <th>Protein (g)</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+      <tbody id="logBody"></tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td id="totalCalories">0</td>
+          <td id="totalProtein">0</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 
-  <script src="App.js"></script>
+  <div id="databaseTab" class="tab-content">
+    <h1>Food Database</h1>
+    <input type="text" id="newFoodName" placeholder="Food name" />
+    <input type="number" id="newCalories" placeholder="Calories" />
+    <input type="number" id="newProtein" placeholder="Protein (g)" />
+    <button onclick="addFoodToDatabase()">Create New Food</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Calories</th>
+          <th>Protein (g)</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="foodDatabaseBody"></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
