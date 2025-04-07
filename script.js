@@ -1,133 +1,102 @@
-let foodDatabase = JSON.parse(localStorage.getItem("foodDatabase")) || [];
-let entries = JSON.parse(localStorage.getItem("history")) || [];
-let goalCalories = parseFloat(localStorage.getItem("goalCalories")) || 0;
-let goalProtein = parseFloat(localStorage.getItem("goalProtein")) || 0;
+// Function to open a specific tab
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
 
-document.addEventListener("DOMContentLoaded", () => {
-  updateFoodDropdown();
-  updateEntriesList();
-  updateTotals();
-  updateGoalDisplay();
-  showTab(0);  // Start on the first tab (Tracker)
-});
-
-function saveNewFood() {
-  const name = document.getElementById("newFoodName").value;
-  const calories = parseFloat(document.getElementById("newFoodCalories").value);
-  const protein = parseFloat(document.getElementById("newFoodProtein").value);
-
-  if (!name || isNaN(calories) || isNaN(protein)) {
-    alert('Please enter valid food data.');
-    return;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
   }
 
-  const newFood = { name, calories, protein };
-  foodDatabase.push(newFood);
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active");
+  }
 
-  localStorage.setItem("foodDatabase", JSON.stringify(foodDatabase));
-
-  document.getElementById("newFoodName").value = "";
-  document.getElementById("newFoodCalories").value = "";
-  document.getElementById("newFoodProtein").value = "";
-
-  updateFoodDropdown();
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.classList.add("active");
 }
 
-function updateFoodDropdown() {
+// Food Tracker logic
+let foodDatabase = JSON.parse(localStorage.getItem("foodDatabase")) || [];
+let totalCalories = 0;
+let totalProtein = 0;
+let goalCalories = localStorage.getItem("goalCalories") || 0;
+let goalProtein = localStorage.getItem("goalProtein") || 0;
+
+function addFoodToSelect() {
   const foodSelect = document.getElementById("foodSelect");
-  foodSelect.innerHTML = `<option disabled selected>Select Item</option>`;
+  foodSelect.innerHTML = '<option disabled selected>Select Item</option>';
 
   foodDatabase.forEach(food => {
     const option = document.createElement("option");
     option.value = food.name;
-    option.textContent = food.name;
+    option.text = food.name;
     foodSelect.appendChild(option);
   });
 }
 
 function addEntry() {
   const foodSelect = document.getElementById("foodSelect");
-  const quantity = parseFloat(document.getElementById("quantity").value) || 1;
-  const selectedFood = foodDatabase.find(f => f.name === foodSelect.value);
-  if (!selectedFood) return;
+  const quantity = parseInt(document.getElementById("quantity").value);
+  const selectedFood = foodDatabase.find(food => food.name === foodSelect.value);
 
-  const calories = selectedFood.calories * quantity;
-  const protein = selectedFood.protein * quantity;
-  const date = new Date().toISOString();
+  if (selectedFood) {
+    const calories = selectedFood.calories * quantity;
+    const protein = selectedFood.protein * quantity;
 
-  const entry = { name: selectedFood.name, calories, protein, date };
-  entries.push(entry);
+    totalCalories += calories;
+    totalProtein += protein;
 
-  localStorage.setItem("history", JSON.stringify(entries));
+    document.getElementById("totals").innerHTML = `
+      <p>Total Calories: ${totalCalories}</p>
+      <p>Total Protein: ${totalProtein}g</p>
+      <p>Remaining Calories: ${goalCalories - totalCalories}</p>
+      <p>Remaining Protein: ${goalProtein - totalProtein}g</p>
+    `;
 
-  updateEntriesList();
-  updateTotals();
-}
-
-function updateEntriesList() {
-  const list = document.getElementById("entryList");
-  list.innerHTML = "";
-
-  entries.forEach((entry, index) => {
+    const entryList = document.getElementById("entryList");
     const li = document.createElement("li");
-    li.innerHTML = `${entry.name}: ${entry.calories.toFixed(1)} kcal, ${entry.protein.toFixed(1)}g protein 
-                    <button class="delete" onclick="deleteEntry(${index})">X</button>`;
-    list.appendChild(li);
-  });
+    li.textContent = `${selectedFood.name} x ${quantity} - ${calories} Calories, ${protein}g Protein`;
+    entryList.appendChild(li);
+  }
 }
 
-function deleteEntry(index) {
-  entries.splice(index, 1);
+function saveNewFood() {
+  const foodName = document.getElementById("newFoodName").value;
+  const calories = parseInt(document.getElementById("newFoodCalories").value);
+  const protein = parseInt(document.getElementById("newFoodProtein").value);
 
-  localStorage.setItem("history", JSON.stringify(entries));
+  const newFood = {
+    name: foodName,
+    calories: calories,
+    protein: protein
+  };
 
-  updateEntriesList();
-  updateTotals();
-}
+  foodDatabase.push(newFood);
+  localStorage.setItem("foodDatabase", JSON.stringify(foodDatabase));
 
-function updateTotals() {
-  const totalCalories = entries.reduce((acc, entry) => acc + entry.calories, 0);
-  const totalProtein = entries.reduce((acc, entry) => acc + entry.protein, 0);
-
-  const remainingCalories = goalCalories - totalCalories;
-  const remainingProtein = goalProtein - totalProtein;
-
-  document.querySelector("#totals p:nth-child(1)").textContent = `Total Calories: ${totalCalories.toFixed(1)}`;
-  document.querySelector("#totals p:nth-child(2)").textContent = `Total Protein: ${totalProtein.toFixed(1)}g`;
-  document.querySelector("#totals p:nth-child(3)").textContent = `Remaining Calories: ${remainingCalories.toFixed(1)}`;
-  document.querySelector("#totals p:nth-child(4)").textContent = `Remaining Protein: ${remainingProtein.toFixed(1)}g`;
+  addFoodToSelect();
+  alert("Food saved successfully!");
+  document.getElementById("newFoodName").value = '';
+  document.getElementById("newFoodCalories").value = '';
+  document.getElementById("newFoodProtein").value = '';
 }
 
 function confirmGoal() {
-  goalCalories = parseFloat(document.getElementById("goalCalories").value);
-  goalProtein = parseFloat(document.getElementById("goalProtein").value);
-
-  if (isNaN(goalCalories) || isNaN(goalProtein)) {
-    alert('Please enter valid goals.');
-    return;
-  }
+  goalCalories = parseInt(document.getElementById("goalCalories").value);
+  goalProtein = parseInt(document.getElementById("goalProtein").value);
 
   localStorage.setItem("goalCalories", goalCalories);
   localStorage.setItem("goalProtein", goalProtein);
 
-  updateGoalDisplay();
-  updateTotals();
-}
-
-function updateGoalDisplay() {
   document.getElementById("goalDisplay").innerHTML = `
-    <p>Calorie Goal: ${goalCalories} kcal</p>
+    <p>Calorie Goal: ${goalCalories}</p>
     <p>Protein Goal: ${goalProtein}g</p>
   `;
 }
 
-function showTab(tabIndex) {
-  const tabs = document.querySelectorAll('.tabContent');
-  tabs.forEach((tab, index) => {
-    if (index === tabIndex) {
-      tab.classList.add("active");
-    } else {
-      tab.classList.remove("active");
-    }
-  });
-                  }
+// Initialize food selection
+addFoodToSelect();
+
+// Set default tab to open
+document.querySelector(".tablink").click();
