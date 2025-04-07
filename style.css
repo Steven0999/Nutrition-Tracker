@@ -1,87 +1,71 @@
 body {
-  background-color: #333;
-  color: #ddd;
   font-family: Arial, sans-serif;
+  background-color: black;
+  color: lightgrey;
   margin: 0;
   padding: 0;
 }
 
 .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 20px auto;
   padding: 20px;
-  background-color: #222;
-  border-radius: 8px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 h1 {
   text-align: center;
-  color: #ff7f00;
+  color: orange;
 }
 
 .tabs {
-  display: flex;
-  justify-content: space-around;
+  text-align: center;
   margin-bottom: 20px;
 }
 
 .tabs button {
-  background-color: #ff7f00;
-  border: none;
+  background-color: orange;
   color: white;
   padding: 10px 20px;
+  border: none;
   cursor: pointer;
-  border-radius: 5px;
+  font-size: 16px;
+  margin: 5px;
+  transition: background-color 0.3s;
 }
 
 .tabs button:hover {
-  background-color: #ff5f00;
+  background-color: darkorange;
 }
 
-.tabContent {
+.tabcontent {
   display: none;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
 }
 
-.tabContent.active {
+#Tracker {
   display: block;
 }
 
+.create-food-form input {
+  margin-bottom: 10px;
+}
+
+.goal-form input {
+  margin-bottom: 10px;
+}
+
 button {
-  background-color: #ff7f00;
-  border: none;
+  padding: 10px 20px;
+  background-color: orange;
   color: white;
-  padding: 10px;
+  border: none;
   cursor: pointer;
-  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #ff5f00;
-}
-
-input[type="number"], input[type="text"], select {
-  padding: 8px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: 1px solid #444;
-  background-color: #555;
-  color: white;
-}
-
-.delete {
-  background-color: #e44e4e;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.delete:hover {
-  background-color: #d13d3d;
-}
-
-#totals p {
-  margin: 5px 0;
+  background-color: darkorange;
 }
 
 ul {
@@ -89,6 +73,12 @@ ul {
   padding: 0;
 }
 
-.goal-form input {
-  margin-right: 10px;
+li {
+  padding: 5px;
+  background-color: #f4f4f4;
+  margin: 5px 0;
+}
+
+.totals p {
+  font-size: 18px;
 }
