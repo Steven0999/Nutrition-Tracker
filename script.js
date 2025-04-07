@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateEntriesList();
   updateTotals();
   updateGoalDisplay();
+  showTab(0);  // Start on the first tab (Tracker)
 });
 
 function saveNewFood() {
