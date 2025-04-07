@@ -1,59 +1,79 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nutrition Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
-  <div class="tabs">
-    <button onclick="switchTab('tracker')">Tracker</button>
-    <button onclick="switchTab('database')">Food Database</button>
-    <button onclick="switchTab('goals')">Set Goals</button>
-    <button onclick="switchTab('history')">History</button>
-  </div>
+  <div class="container">
 
-  <div id="tracker" class="tabContent">
-    <h2>Food Tracker</h2>
-    <select id="foodSelect"><option disabled selected>Select Item</option></select>
-    <input type="number" id="quantity" placeholder="Quantity" value="1" min="1"/>
-    <button onclick="addFoodLog()">Add Entry</button>
-    <ul id="logList"></ul>
-    <div class="totals">
-      <p>Total Calories: <span id="totalCalories">0</span></p>
-      <p>Total Protein: <span id="totalProtein">0</span>g</p>
-      <p>Remaining Calories: <span id="remainingCalories">0</span></p>
-      <p>Remaining Protein: <span id="remainingProtein">0</span>g</p>
+    <h1>Nutrition Tracker</h1>
+
+    <!-- Tab navigation -->
+    <div class="tabs">
+      <button>Tracker</button>
+      <button>Create Food</button>
+      <button>Goals</button>
+      <button>History</button>
     </div>
-  </div>
 
-  <div id="database" class="tabContent">
-    <h2>Food Database</h2>
-    <input type="text" id="foodName" placeholder="Food Name" />
-    <input type="number" id="foodCalories" placeholder="Calories per unit" />
-    <input type="number" id="foodProtein" placeholder="Protein per unit (g)" />
-    <button onclick="addFoodToDatabase()">Save Food</button>
-    <button onclick="startScanner()">Scan Barcode</button>
-    <p id="barcodeResult"></p>
-    <ul id="foodList"></ul>
-  </div>
+    <!-- Tab content -->
+    <div class="tabContent">
+      <h2>Tracker</h2>
+      <div class="tracker">
+        <div class="food-selection">
+          <label for="foodSelect">Select Food:</label>
+          <select id="foodSelect">
+            <option disabled selected>Select Item</option>
+          </select>
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" value="1" min="1">
+          <button onclick="addEntry()">Add Entry</button>
+        </div>
+        <div class="totals" id="totals">
+          <p>Total Calories: 0</p>
+          <p>Total Protein: 0g</p>
+          <p>Remaining Calories: 0</p>
+          <p>Remaining Protein: 0g</p>
+        </div>
+        <ul id="entryList"></ul>
+      </div>
+    </div>
 
-  <div id="goals" class="tabContent">
-    <h2>Set Nutrition Goals</h2>
-    <input type="number" id="calorieGoalInput" placeholder="Calorie Goal" />
-    <input type="number" id="proteinGoalInput" placeholder="Protein Goal (g)" />
-    <button onclick="saveGoals()">Confirm Goal</button>
-  </div>
+    <div class="tabContent">
+      <h2>Create Food</h2>
+      <div class="create-food-form">
+        <label for="newFoodName">Food Name:</label>
+        <input type="text" id="newFoodName">
+        <label for="newFoodCalories">Calories:</label>
+        <input type="number" id="newFoodCalories">
+        <label for="newFoodProtein">Protein (g):</label>
+        <input type="number" id="newFoodProtein">
+        <button onclick="saveNewFood()">Save Food</button>
+      </div>
+    </div>
 
-  <div id="history" class="tabContent">
-    <h2>Weekly/Monthly Averages</h2>
-    <select id="historyRange" onchange="renderHistory()">
-      <option value="week">Last 7 Days</option>
-      <option value="month">This Month</option>
-    </select>
-    <div id="historyData"></div>
+    <div class="tabContent">
+      <h2>Goals</h2>
+      <div class="goal-form">
+        <label for="goalCalories">Set Calorie Goal:</label>
+        <input type="number" id="goalCalories" min="0">
+        <label for="goalProtein">Set Protein Goal (g):</label>
+        <input type="number" id="goalProtein" min="0">
+        <button onclick="confirmGoal()">Save Goal</button>
+      </div>
+      <div id="goalDisplay"></div>
+    </div>
+
+    <div class="tabContent">
+      <h2>History</h2>
+      <div id="historyData">
+        <p>No data saved yet.</p>
+      </div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
