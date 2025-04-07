@@ -1,62 +1,26 @@
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
   padding: 20px;
-  max-width: 700px;
-  margin: auto;
-}
-
-h1 {
-  text-align: center;
-}
-
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-}
-
-button {
-  cursor: pointer;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-tfoot {
-  font-weight: bold;
-}
-
-.reset-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
+  background: #f4f4f4;
 }
 
 .tabs {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .tab-btn {
-  padding: 10px;
-  flex: 1;
+  padding: 10px 15px;
+  background: #ddd;
   border: none;
-  background-color: #ddd;
-  font-weight: bold;
+  cursor: pointer;
 }
 
 .tab-btn.active {
-  background-color: #bbb;
+  background: #007bff;
+  color: white;
 }
 
 .tab-content {
@@ -65,4 +29,28 @@ tfoot {
 
 .tab-content.active {
   display: block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #999;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+.reset-btn {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
 }
