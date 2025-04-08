@@ -1,32 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-  setupTabs();
-  openTab("Tracker");
-
+  openTab(null, 'Tracker');
   addFoodToSelect();
   loadGoals();
 });
 
-function setupTabs() {
-  const tabButtons = document.querySelectorAll(".tablink");
-  tabButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      const tabName = button.getAttribute("data-tab");
-      openTab(tabName);
-    });
-  });
-}
+function openTab(evt, tabName) {
+  const tabcontents = document.querySelectorAll(".tabcontent");
+  tabcontents.forEach(tab => tab.style.display = "none");
 
-function openTab(tabName) {
-  const allTabs = document.querySelectorAll(".tabcontent");
-  allTabs.forEach(tab => tab.classList.remove("active"));
+  const tablinks = document.querySelectorAll(".tablink");
+  tablinks.forEach(link => link.classList.remove("active"));
 
-  const activeTab = document.getElementById(tabName);
-  if (activeTab) {
-    activeTab.classList.add("active");
-  }
+  const selectedTab = document.getElementById(tabName);
+  if (selectedTab) selectedTab.style.display = "block";
 
-  document.querySelectorAll(".tablink").forEach(btn => btn.classList.remove("active"));
-  document.querySelector(`.tablink[data-tab="${tabName}"]`).classList.add("active");
+  if (evt) evt.currentTarget.classList.add("active");
+  else document.querySelector(`.tablink[onclick*="${tabName}"]`)?.classList.add("active");
 }
 
 let foodDatabase = JSON.parse(localStorage.getItem("foodDatabase")) || [];
