@@ -1,85 +1,56 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: black;
-  color: lightgrey;
   margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
   padding: 20px;
-}
-
-h1, h2 {
-  text-align: center;
-  color: orange;
+  background: #f4f4f4;
 }
 
 .tabs {
-  text-align: center;
+  display: flex;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-.tablink {
-  background-color: orange;
+.tab-btn {
+  padding: 10px 15px;
+  background: #ddd;
   border: none;
-  color: white;
-  padding: 10px 20px;
-  margin: 0 5px;
   cursor: pointer;
-  font-size: 16px;
 }
 
-.tablink.active,
-.tablink:hover {
-  background-color: darkorange;
+.tab-btn.active {
+  background: #007bff;
+  color: white;
 }
 
-.tabcontent {
+.tab-content {
   display: none;
 }
 
-.tabcontent.active {
+.tab-content.active {
   display: block;
 }
 
-input, select {
-  display: block;
+table {
   width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  background-color: #222;
-  color: lightgrey;
-  border: 1px solid orange;
-  border-radius: 5px;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-button {
-  background-color: orange;
+table, th, td {
+  border: 1px solid #999;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+.reset-btn {
+  margin-left: 10px;
+  background-color: red;
   color: white;
+  padding: 6px 12px;
   border: none;
-  padding: 10px 15px;
   cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: darkorange;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  padding: 8px;
-  background-color: #1a1a1a;
-  margin: 5px 0;
-  border: 1px solid orange;
-  border-radius: 5px;
 }
