@@ -11,13 +11,13 @@
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tablink active" data-tab="Tracker">Tracker</button>
-      <button class="tablink" data-tab="CreateFood">Create Food</button>
-      <button class="tablink" data-tab="Goals">Goals</button>
-      <button class="tablink" data-tab="History">History</button>
+      <button class="tablink active" onclick="openTab(event, 'Tracker')">Tracker</button>
+      <button class="tablink" onclick="openTab(event, 'CreateFood')">Create Food</button>
+      <button class="tablink" onclick="openTab(event, 'Goals')">Goals</button>
+      <button class="tablink" onclick="openTab(event, 'History')">History</button>
     </div>
 
-    <!-- Tracker Tab -->
+    <!-- Tab contents -->
     <div id="Tracker" class="tabcontent">
       <h2>Tracker</h2>
       <label for="foodSelect">Select Food:</label>
@@ -40,7 +40,6 @@
       </div>
     </div>
 
-    <!-- Create Food Tab -->
     <div id="CreateFood" class="tabcontent">
       <h2>Create New Food</h2>
       <input type="text" id="newFoodName" placeholder="Food Name" />
@@ -49,7 +48,6 @@
       <button onclick="saveNewFood()">Save Food</button>
     </div>
 
-    <!-- Goals Tab -->
     <div id="Goals" class="tabcontent">
       <h2>Set Your Goals</h2>
       <input type="number" id="goalCalories" placeholder="Calorie Goal" />
@@ -58,10 +56,9 @@
       <div id="goalDisplay"></div>
     </div>
 
-    <!-- History Tab -->
     <div id="History" class="tabcontent">
       <h2>History</h2>
-      <p>(Feature in development)</p>
+      <p>(Coming soon...)</p>
     </div>
   </div>
 
