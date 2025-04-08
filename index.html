@@ -1,82 +1,73 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nutrition Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
   <div class="container">
     <h1>Nutrition Tracker</h1>
 
-    <!-- Navigation Tabs -->
+    <!-- Tabs -->
     <div class="tabs">
-      <button class="tablink" onclick="openTab(event, 'Tracker')">Tracker</button>
-      <button class="tablink" onclick="openTab(event, 'CreateFood')">Create Food</button>
-      <button class="tablink" onclick="openTab(event, 'Goals')">Goals</button>
-      <button class="tablink" onclick="openTab(event, 'History')">History</button>
+      <button class="tablink active">Tracker</button>
+      <button class="tablink">Create Food</button>
+      <button class="tablink">Goals</button>
+      <button class="tablink">History</button>
     </div>
 
-    <!-- Tab Content -->
+    <!-- Tracker Tab -->
     <div id="Tracker" class="tabcontent">
       <h2>Tracker</h2>
-      <!-- Tracker content -->
       <div class="tracker">
-        <div class="food-selection">
-          <label for="foodSelect">Select Food:</label>
-          <select id="foodSelect">
-            <option disabled selected>Select Item</option>
-          </select>
-          <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" value="1" min="1">
-          <button onclick="addEntry()">Add Entry</button>
-        </div>
+        <label for="foodSelect">Select Food:</label>
+        <select id="foodSelect">
+          <option disabled selected>Select Item</option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="1" min="1"/>
+
+        <button onclick="addEntry()">Add Entry</button>
+
+        <ul id="entryList"></ul>
+
         <div class="totals" id="totals">
           <p>Total Calories: 0</p>
           <p>Total Protein: 0g</p>
           <p>Remaining Calories: 0</p>
           <p>Remaining Protein: 0g</p>
         </div>
-        <ul id="entryList"></ul>
       </div>
     </div>
 
+    <!-- Create Food Tab -->
     <div id="CreateFood" class="tabcontent">
-      <h2>Create Food</h2>
-      <div class="create-food-form">
-        <label for="newFoodName">Food Name:</label>
-        <input type="text" id="newFoodName">
-        <label for="newFoodCalories">Calories:</label>
-        <input type="number" id="newFoodCalories">
-        <label for="newFoodProtein">Protein (g):</label>
-        <input type="number" id="newFoodProtein">
-        <button onclick="saveNewFood()">Save Food</button>
-      </div>
+      <h2>Create New Food</h2>
+      <input type="text" id="newFoodName" placeholder="Food Name" />
+      <input type="number" id="newFoodCalories" placeholder="Calories" />
+      <input type="number" id="newFoodProtein" placeholder="Protein (g)" />
+      <button onclick="saveNewFood()">Save Food</button>
     </div>
 
+    <!-- Goals Tab -->
     <div id="Goals" class="tabcontent">
-      <h2>Goals</h2>
-      <div class="goal-form">
-        <label for="goalCalories">Set Calorie Goal:</label>
-        <input type="number" id="goalCalories" min="0">
-        <label for="goalProtein">Set Protein Goal (g):</label>
-        <input type="number" id="goalProtein" min="0">
-        <button onclick="confirmGoal()">Save Goal</button>
-      </div>
+      <h2>Set Your Goals</h2>
+      <input type="number" id="goalCalories" placeholder="Calorie Goal" />
+      <input type="number" id="goalProtein" placeholder="Protein Goal (g)" />
+      <button onclick="confirmGoal()">Save Goal</button>
+
       <div id="goalDisplay"></div>
     </div>
 
+    <!-- History Tab -->
     <div id="History" class="tabcontent">
       <h2>History</h2>
-      <div id="historyData">
-        <p>No data saved yet.</p>
-      </div>
+      <p>(Feature in development)</p>
     </div>
-
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
