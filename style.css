@@ -2,7 +2,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background: #f4f4f4;
+  background: black;
+  color: grey;
 }
 
 .tabs {
@@ -13,13 +14,13 @@ body {
 
 .tab-btn {
   padding: 10px 15px;
-  background: #ddd;
+  background: orange;
   border: none;
   cursor: pointer;
 }
 
 .tab-btn.active {
-  background: #007bff;
+  background: grey;
   color: white;
 }
 
