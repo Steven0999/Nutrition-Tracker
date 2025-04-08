@@ -39,11 +39,10 @@ h1, h2 {
 
 .tabcontent {
   display: none;
-  margin-top: 20px;
 }
 
-#Tracker {
-  display: block; /* Show first tab by default */
+.tabcontent.active {
+  display: block;
 }
 
 input, select {
