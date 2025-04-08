@@ -7,12 +7,12 @@ body {
 }
 
 .container {
-  padding: 20px;
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
   color: orange;
 }
@@ -22,46 +22,50 @@ h1 {
   margin-bottom: 20px;
 }
 
-.tabs button {
+.tablink {
   background-color: orange;
+  border: none;
   color: white;
   padding: 10px 20px;
-  border: none;
+  margin: 0 5px;
   cursor: pointer;
   font-size: 16px;
-  margin: 5px;
-  transition: background-color 0.3s;
 }
 
-.tabs button:hover {
+.tablink.active,
+.tablink:hover {
   background-color: darkorange;
 }
 
 .tabcontent {
   display: none;
-  padding: 20px;
-  border: 1px solid #ccc;
   margin-top: 20px;
 }
 
 #Tracker {
+  display: block; /* Show first tab by default */
+}
+
+input, select {
   display: block;
-}
-
-.create-food-form input {
-  margin-bottom: 10px;
-}
-
-.goal-form input {
-  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  background-color: #222;
+  color: lightgrey;
+  border: 1px solid orange;
+  border-radius: 5px;
 }
 
 button {
-  padding: 10px 20px;
   background-color: orange;
   color: white;
   border: none;
+  padding: 10px 15px;
   cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  font-weight: bold;
 }
 
 button:hover {
@@ -69,16 +73,19 @@ button:hover {
 }
 
 ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
 }
 
 li {
-  padding: 5px;
-  background-color: #f4f4f4;
+  padding: 8px;
+  background-color: #1a1a1a;
   margin: 5px 0;
+  border: 1px solid orange;
+  border-radius: 5px;
 }
 
 .totals p {
-  font-size: 18px;
+  font-size: 16px;
+  color: lightgrey;
 }
