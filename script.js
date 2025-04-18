@@ -131,68 +131,61 @@ function updateTable() {
   logBody.innerHTML = '';
 
   const addedMeals = new Set();
+  const mealGroups = {};
+
+  // Group food log entries by meal
+  foodLog.forEach(entry => {
+    if (!mealGroups[entry.meal]) {
+      mealGroups[entry.meal] = [];
+    }
+    mealGroups[entry.meal].push(entry);
+  });
+
   let totalCal = 0;
   let totalPro = 0;
-  let mealTotals = {
-    breakfast: { calories: 0, protein: 0 },
-    lunch: { calories: 0, protein: 0 },
-    dinner: { calories: 0, protein: 0 }
-  };
 
-  foodLog.forEach((item, index) => {
-    if (!addedMeals.has(item.meal)) {
-      const headerRow = document.createElement('tr');
-      headerRow.innerHTML = `<td colspan="6" class="meal-header">${item.meal}</td>`;
-      logBody.appendChild(headerRow);
-      addedMeals.add(item.meal);
-    }
+  for (const meal in mealGroups) {
+    const entries = mealGroups[meal];
+    let mealCal = 0;
+    let mealPro = 0;
 
-    const row = document.createElement('tr');
-    const cal = item.calories * item.qty;
-    const pro = item.protein * item.qty;
+    // Meal header row
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `<td colspan="6" class="meal-header">${meal}</td>`;
+    logBody.appendChild(headerRow);
 
-    row.innerHTML = `
-      <td>${item.name}</td>
-      <td>${item.meal}</td>
-      <td>${cal.toFixed(1)}</td>
-      <td>${pro.toFixed(1)}</td>
-      <td>${item.qty}</td>
-      <td><button onclick="removeLogEntry(${index})">X</button></td>
-    `;
-    logBody.appendChild(row);
+    entries.forEach((item, index) => {
+      const cal = item.calories * item.qty;
+      const pro = item.protein * item.qty;
+      mealCal += cal;
+      mealPro += pro;
 
-    totalCal += cal;
-    totalPro += pro;
-
-    // Add to the specific meal totals
-    if (item.meal.toLowerCase() === 'breakfast') {
-      mealTotals.breakfast.calories += cal;
-      mealTotals.breakfast.protein += pro;
-    } else if (item.meal.toLowerCase() === 'lunch') {
-      mealTotals.lunch.calories += cal;
-      mealTotals.lunch.protein += pro;
-    } else if (item.meal.toLowerCase() === 'dinner') {
-      mealTotals.dinner.calories += cal;
-      mealTotals.dinner.protein += pro;
-    }
-  });
-
-  // Append total row for each meal type
-  Object.keys(mealTotals).forEach(meal => {
-    if (mealTotals[meal].calories > 0 || mealTotals[meal].protein > 0) {
-      const totalRow = document.createElement('tr');
-      totalRow.innerHTML = `
-        <td colspan="2"><strong>Total ${meal.charAt(0).toUpperCase() + meal.slice(1)}</strong></td>
-        <td>${mealTotals[meal].calories.toFixed(1)}</td>
-        <td>${mealTotals[meal].protein.toFixed(1)}</td>
-        <td></td>
-        <td></td>
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.meal}</td>
+        <td>${cal.toFixed(1)}</td>
+        <td>${pro.toFixed(1)}</td>
+        <td>${item.qty}</td>
+        <td><button onclick="removeLogEntry(${foodLog.indexOf(item)})">X</button></td>
       `;
-      logBody.appendChild(totalRow);
-    }
-  });
+      logBody.appendChild(row);
+    });
 
-  // Update overall goals and totals
+    // Subtotal row
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+      <td colspan="2"><strong>${meal} Total</strong></td>
+      <td><strong>${mealCal.toFixed(1)}</strong></td>
+      <td><strong>${mealPro.toFixed(1)}</strong></td>
+      <td colspan="2"></td>
+    `;
+    logBody.appendChild(totalRow);
+
+    totalCal += mealCal;
+    totalPro += mealPro;
+  }
+
   document.getElementById('goalCalories').textContent = goals.calories;
   document.getElementById('goalProtein').textContent = goals.protein;
   document.getElementById('totalCalories').textContent = totalCal.toFixed(1);
