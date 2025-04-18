@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nutrition Tracker</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
   <div class="tabs">
@@ -32,10 +33,10 @@
     </select>
     <input type="number" id="customWeight" placeholder="Custom Weight (g)" style="display:none" />
     <button onclick="addEntry()">Add Entry</button>
-
     <div id="logContainer"></div>
-
     <button class="reset-btn" onclick="resetLog()">Reset Log</button>
+    <button onclick="startScanner()">Scan Barcode</button>
+    <div id="reader" style="width: 100%; margin-top: 20px;"></div>
   </div>
 
   <!-- Create Food Tab -->
