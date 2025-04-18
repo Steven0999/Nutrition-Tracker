@@ -1,69 +1,129 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Meal Tracker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition & Food Tracker</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(event, 'trackerTab')">Tracker</button>
-    <button class="tab-btn" onclick="switchTab(event, 'createTab')">Add Food</button>
-    <button class="tab-btn" onclick="switchTab(event, 'goalsTab')">Goals</button>
-  </div>
 
-  <div id="trackerTab" class="tab-content active">
-    <h2>Food Tracker</h2>
-    <input id="searchInput" oninput="searchFood()" placeholder="Search food...">
-    <div id="searchResults"></div>
-    <br>
-    <label>Quantity: <input id="quantity" type="number" value="1"></label>
-    <label>Serving: 
-      <select id="servingType" onchange="toggleCustomWeight()">
-        <option value="default">Default</option>
-        <option value="custom">Custom (g)</option>
+  <!-- Header -->
+  <header>
+    <h1>Nutrition & Food Tracker</h1>
+    <p>Track your meals, create custom food entries, and monitor your daily goals.</p>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="tabs" aria-label="Main Navigation Tabs">
+    <button class="tab-btn active" onclick="switchTab(event, 'trackerTab')">Food Tracker</button>
+    <button class="tab-btn" onclick="switchTab(event, 'createTab')">Create Food</button>
+    <button class="tab-btn" onclick="switchTab(event, 'goalsTab')">Set Daily Goals</button>
+  </nav>
+
+  <!-- Main Content Area -->
+
+  <!-- Food Tracker Tab -->
+  <section id="trackerTab" class="tab-content active" aria-labelledby="Food Tracker Tab">
+    <h2>Log Your Meals</h2>
+
+    <!-- Search Section -->
+    <div class="search-section">
+      <label for="searchInput">Search for a food item:</label>
+      <input type="text" id="searchInput" placeholder="e.g. Chicken Breast" oninput="searchFood()" aria-label="Search Food" />
+      <div id="searchResults" class="autocomplete-results"></div>
+    </div>
+
+    <!-- Input Section -->
+    <div class="entry-section">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" min="1" value="1" aria-label="Quantity" />
+
+      <label for="mealType">Meal Type:</label>
+      <select id="mealType" aria-label="Meal Type">
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
       </select>
-      <input id="customWeight" style="display:none" placeholder="grams">
-    </label>
-    <label>Meal:
-      <select id="mealType">
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
-        <option>Snack</option>
+
+      <label for="servingType">Serving Type:</label>
+      <select id="servingType" onchange="toggleCustomWeight()" aria-label="Serving Type">
+        <option value="default">Per Serving</option>
+        <option value="custom">Custom Weight (grams)</option>
       </select>
-    </label>
-    <button onclick="addEntry()">Add Entry</button>
-    <button onclick="resetLog()">Clear Log</button>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Food</th><th>Meal</th><th>Calories</th><th>Protein</th><th>Qty</th><th></th>
-        </tr>
-      </thead>
-      <tbody id="logBody"></tbody>
-    </table>
+      <input type="number" id="customWeight" placeholder="Enter weight in grams" style="display:none;" aria-label="Custom Weight" />
+    </div>
 
-    <p>Goal: <span id="goalCalories">0</span> kcal, <span id="goalProtein">0</span> g protein</p>
-    <p>Total: <span id="totalCalories">0</span> kcal, <span id="totalProtein">0</span> g protein</p>
-    <p>Remaining: <span id="remainingCalories">0</span> kcal, <span id="remainingProtein">0</span> g protein</p>
-  </div>
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button onclick="addEntry()">Add Entry</button>
+      <button onclick="resetLog()">Clear Log</button>
+    </div>
 
-  <div id="createTab" class="tab-content">
-    <h2>Create New Food</h2>
-    <label>Name: <input id="newFoodName"></label>
-    <label>Calories per 100g: <input id="newCalories" type="number"></label>
-    <label>Protein per 100g: <input id="newProtein" type="number"></label>
+    <!-- Log Table -->
+    <div class="log-table">
+      <h3>Daily Log</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Food Item</th>
+            <th>Meal</th>
+            <th>Calories</th>
+            <th>Protein (g)</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="logBody">
+          <!-- Entries added via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+      <h3>Daily Totals</h3>
+      <p>Calories Consumed: <span id="totalCalories">0</span> / <span id="goalCalories">0</span></p>
+      <p>Protein Consumed: <span id="totalProtein">0</span> / <span id="goalProtein">0</span></p>
+      <p>Remaining Calories: <span id="remainingCalories">0</span></p>
+      <p>Remaining Protein: <span id="remainingProtein">0</span></p>
+    </div>
+  </section>
+
+  <!-- Create Food Tab -->
+  <section id="createTab" class="tab-content" aria-labelledby="Create Food Tab">
+    <h2>Create Custom Food</h2>
+    <p>Add new food items with nutritional values.</p>
+
+    <label for="newFoodName">Food Name:</label>
+    <input type="text" id="newFoodName" placeholder="e.g. Homemade Curry" />
+
+    <label for="newCalories">Calories per 100g:</label>
+    <input type="number" id="newCalories" placeholder="e.g. 230" />
+
+    <label for="newProtein">Protein per 100g:</label>
+    <input type="number" id="newProtein" placeholder="e.g. 18" />
+
     <button onclick="addFoodAndReturn()">Save Food</button>
-    <div id="reader"></div>
-  </div>
+  </section>
 
-  <div id="goalsTab" class="tab-content">
-    <h2>Set Your Daily Goals</h2>
-    <label>Calories: <input id="goalCaloriesInput" type="number"></label>
-    <label>Protein: <input id="goalProteinInput" type="number"></label>
+  <!-- Set Goals Tab -->
+  <section id="goalsTab" class="tab-content" aria-labelledby="Set Goals Tab">
+    <h2>Set Your Daily Nutrition Goals</h2>
+
+    <label for="goalCaloriesInput">Daily Calorie Goal:</label>
+    <input type="number" id="goalCaloriesInput" placeholder="e.g. 2000" />
+
+    <label for="goalProteinInput">Daily Protein Goal (g):</label>
+    <input type="number" id="goalProteinInput" placeholder="e.g. 150" />
+
     <button onclick="saveGoals()">Save Goals</button>
-  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Food Tracker App - Built with HTML, CSS, and JavaScript</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
