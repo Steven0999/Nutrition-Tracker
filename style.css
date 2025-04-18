@@ -2,8 +2,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background: #f4f4f4;
-  color: #333;
+  background: #111;
+  color: #eee;
 }
 
 .tabs {
@@ -14,13 +14,14 @@ body {
 
 .tab-btn {
   padding: 10px 15px;
-  background: #3498db;
+  background: orange;
   border: none;
   cursor: pointer;
+  color: black;
 }
 
 .tab-btn.active {
-  background: #2c3e50;
+  background: grey;
   color: white;
 }
 
@@ -32,42 +33,46 @@ body {
   display: block;
 }
 
+#searchResults div {
+  background: #222;
+  padding: 5px;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+#searchResults div:hover {
+  background: #333;
+}
+
+input, select {
+  margin: 5px;
+  padding: 6px;
+}
+
+button {
+  padding: 6px 12px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-}
-
-table, th, td {
-  border: 1px solid #ccc;
+  background: #222;
 }
 
 th, td {
   padding: 10px;
   text-align: center;
-}
-
-.reset-btn {
-  margin-left: 10px;
-  background-color: red;
+  border: 1px solid #555;
   color: white;
-  padding: 6px 12px;
-  border: none;
-  cursor: pointer;
-}
-
-.meal-section {
-  margin-top: 20px;
 }
 
 .meal-header {
+  background: #444;
+  color: orange;
   font-weight: bold;
-  background: #3498db;
-  color: white;
-  padding: 5px;
-}
-
-.meal-table {
-  width: 100%;
-  margin-top: 10px;
+  text-align: left;
 }
