@@ -130,26 +130,28 @@ function updateTable() {
   const logBody = document.getElementById('logBody');
   logBody.innerHTML = '';
 
-  const addedMeals = new Set();
-  const mealGroups = {};
+  const mealGroups = {
+    Breakfast: [],
+    Lunch: [],
+    Dinner: []
+  };
 
-  // Group food log entries by meal
+  // Group entries
   foodLog.forEach(entry => {
-    if (!mealGroups[entry.meal]) {
-      mealGroups[entry.meal] = [];
-    }
+    if (!mealGroups[entry.meal]) mealGroups[entry.meal] = [];
     mealGroups[entry.meal].push(entry);
   });
 
   let totalCal = 0;
   let totalPro = 0;
 
-  for (const meal in mealGroups) {
+  Object.keys(mealGroups).forEach(meal => {
     const entries = mealGroups[meal];
+    if (entries.length === 0) return;
+
     let mealCal = 0;
     let mealPro = 0;
 
-    // Meal header row
     const headerRow = document.createElement('tr');
     headerRow.innerHTML = `<td colspan="6" class="meal-header">${meal}</td>`;
     logBody.appendChild(headerRow);
@@ -157,6 +159,7 @@ function updateTable() {
     entries.forEach((item, index) => {
       const cal = item.calories * item.qty;
       const pro = item.protein * item.qty;
+
       mealCal += cal;
       mealPro += pro;
 
@@ -172,8 +175,9 @@ function updateTable() {
       logBody.appendChild(row);
     });
 
-    // Subtotal row
+    // Total for the meal
     const totalRow = document.createElement('tr');
+    totalRow.classList.add('meal-total');
     totalRow.innerHTML = `
       <td colspan="2"><strong>${meal} Total</strong></td>
       <td><strong>${mealCal.toFixed(1)}</strong></td>
@@ -184,8 +188,9 @@ function updateTable() {
 
     totalCal += mealCal;
     totalPro += mealPro;
-  }
+  });
 
+  // Update overall totals
   document.getElementById('goalCalories').textContent = goals.calories;
   document.getElementById('goalProtein').textContent = goals.protein;
   document.getElementById('totalCalories').textContent = totalCal.toFixed(1);
