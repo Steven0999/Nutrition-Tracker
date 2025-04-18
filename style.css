@@ -76,3 +76,11 @@ th, td {
   font-weight: bold;
   text-align: left;
 }
+#databaseSearchInput {
+  padding: 6px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
