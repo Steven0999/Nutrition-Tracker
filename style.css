@@ -55,3 +55,20 @@ th, td {
   border: none;
   cursor: pointer;
 }
+
+.search-results {
+  background: #222;
+  border: 1px solid #444;
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.search-results div {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.search-results div:hover {
+  background: #333;
+}
