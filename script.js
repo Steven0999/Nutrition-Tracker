@@ -227,7 +227,6 @@ async function fetchFoodFromBarcode(barcode) {
 updateFoodDropdown();
 updateFoodTable();
 updateTable();*/
-
 let foodLog = JSON.parse(localStorage.getItem('foodLog')) || [];
 let foodDatabase = JSON.parse(localStorage.getItem('foodDatabase')) || [];
 
@@ -310,7 +309,6 @@ function updateLogDisplay() {
   container.innerHTML = '';
 
   const meals = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
-  let totalCal = 0, totalPro = 0;
 
   meals.forEach(meal => {
     const entries = foodLog.filter(entry => entry.meal === meal);
@@ -333,22 +331,4 @@ function updateLogDisplay() {
 
     const tbody = document.createElement('tbody');
 
-    entries.forEach((entry, index) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${entry.name}</td>
-        <td>${entry.calories * entry.qty}</td>
-        <td>${entry.protein * entry.qty}</td>
-        <td>${entry.qty}</td>
-        <td><button onclick="removeEntry('${meal}', ${index})">X</button></td>
-      `;
-      tbody.appendChild(row);
-
-      totalCal += entry.calories * entry.qty;
-      totalPro += entry.protein * entry.qty;
-    });
-
-    table.appendChild(tbody);
-    section.appendChild(table);
-    container.appendChild(section);
-  });
+    entries.forEach((entry, index) =>
