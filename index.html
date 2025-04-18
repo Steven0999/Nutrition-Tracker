@@ -4,7 +4,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nutrition Tracker</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
 
@@ -15,7 +14,6 @@
     <button class="tab-btn" onclick="switchTab(event, 'goalsTab')">Set Goals</button>
   </div>
 
-  <!-- Tracker Tab -->
   <div id="trackerTab" class="tab-content active">
     <h1>Nutrition Tracker</h1>
 
@@ -36,84 +34,43 @@
     </select>
 
     <input type="number" id="customWeight" placeholder="Custom weight (g)" style="display: none;" />
-
     <input type="number" id="quantity" value="1" min="1" placeholder="Quantity" />
+
     <button onclick="addEntry()">Add Entry</button>
     <button class="reset-btn" onclick="resetLog()">Reset Log</button>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Food</th>
-          <th>Meal</th>
-          <th>Calories</th>
-          <th>Protein</th>
-          <th>Qty</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-      <tbody id="logBody"></tbody>
-      <tfoot>
-        <tr>
-          <td><strong>Goal</strong></td>
-          <td></td>
-          <td id="goalCalories">0</td>
-          <td id="goalProtein">0</td>
-          <td colspan="2"></td>
-        </tr>
-        <tr>
-          <td><strong>Total</strong></td>
-          <td></td>
-          <td id="totalCalories">0</td>
-          <td id="totalProtein">0</td>
-          <td colspan="2"></td>
-        </tr>
-        <tr>
-          <td><strong>Remaining</strong></td>
-          <td></td>
-          <td id="remainingCalories">0</td>
-          <td id="remainingProtein">0</td>
-          <td colspan="2"></td>
-        </tr>
-      </tfoot>
-    </table>
+    <div id="logContainer"></div>
+
+    <div class="totals">
+      <p><strong>Goal:</strong> Calories: <span id="goalCalories">0</span> | Protein: <span id="goalProtein">0</span></p>
+      <p><strong>Total:</strong> Calories: <span id="totalCalories">0</span> | Protein: <span id="totalProtein">0</span></p>
+      <p><strong>Remaining:</strong> Calories: <span id="remainingCalories">0</span> | Protein: <span id="remainingProtein">0</span></p>
+    </div>
   </div>
 
-  <!-- Create Food Tab -->
   <div id="createTab" class="tab-content">
-    <h1>Create New Food</h1>
+    <h2>Create New Food</h2>
     <input type="text" id="newFoodName" placeholder="Food name" />
-    <input type="number" id="newCalories" placeholder="Calories (per 100g)" />
-    <input type="number" id="newProtein" placeholder="Protein (g per 100g)" />
-    <button onclick="addFoodAndReturn()">Save Food</button>
-    <button onclick="startScanner()">Scan Barcode</button>
-    <div id="reader" style="width: 100%; margin-top: 20px;"></div>
+    <input type="number" id="newCalories" placeholder="Calories per 100g/portion" />
+    <input type="number" id="newProtein" placeholder="Protein per 100g/portion" />
+    <button onclick="addFoodAndReturn()">Save & Return</button>
   </div>
 
-  <!-- Food Database Tab -->
   <div id="databaseTab" class="tab-content">
-    <h1>Food Database</h1>
+    <h2>Food Database</h2>
     <table>
       <thead>
-        <tr>
-          <th>Food</th>
-          <th>Calories (100g)</th>
-          <th>Protein (100g)</th>
-          <th>Delete</th>
-        </tr>
+        <tr><th>Name</th><th>Calories</th><th>Protein</th><th>Action</th></tr>
       </thead>
       <tbody id="foodDatabaseBody"></tbody>
     </table>
   </div>
 
-  <!-- Set Goals Tab -->
   <div id="goalsTab" class="tab-content">
-    <h1>Set Your Nutrition Goals</h1>
-    <label>Calorie Goal:</label>
-    <input type="number" id="goalCaloriesInput" placeholder="e.g. 2000" />
-    <label>Protein Goal:</label>
-    <input type="number" id="goalProteinInput" placeholder="e.g. 150" />
-    <button onclick="saveGoals()">Confirm Goals</button>
+    <h2>Set Daily Goals</h2>
+    <input type="number" id="goalCaloriesInput" placeholder="Calorie Goal" />
+    <input type="number" id="goalProteinInput" placeholder="Protein Goal" />
+    <button onclick="saveGoals()">Save Goals</button>
   </div>
 
   <script src="script.js"></script>
