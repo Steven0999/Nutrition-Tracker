@@ -107,6 +107,13 @@
     <button onclick="addFoodAndReturn()">Save Food</button>
   </section>
 
+  <!-- Scanner Section -->
+<div id="scannerSection" class="scanner-section">
+  <h3>Scan Barcode</h3>
+  <button onclick="startScanner()">Start Scanner</button>
+  <div id="reader" style="width: 300px; margin-top: 1em;"></div>
+</div>
+
   <!-- Set Goals Tab -->
   <section id="goalsTab" class="tab-content" aria-labelledby="Set Goals Tab">
     <h2>Set Your Daily Nutrition Goals</h2>
@@ -126,5 +133,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </body>
 </html>
