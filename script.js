@@ -417,20 +417,7 @@ async function fetchFoodFromBarcode(barcode) {
   }
 }
 
-function saveGoals() {
-  const calInput = parseInt(document.getElementById('goalCaloriesInput').value);
-  const proInput = parseInt(document.getElementById('goalProteinInput').value);
-
-  if (!isNaN(calInput)) {
-    goals.calories = calInput;
-    localStorage.setItem('goalCalories', calInput);
-  }
-  if (!isNaN(proInput)) {
-    goals.protein = proInput;
-    localStorage.setItem('goalProtein', proInput);
-  }
-
-  function updateFoodTable() {
+function updateFoodTable() {
   const body = document.getElementById('foodDatabaseBody');
   body.innerHTML = '';
   foodDatabase.forEach((food, index) => {
@@ -489,6 +476,19 @@ function editFood(index) {
     alert("Invalid input.");
   }
 }
+
+function saveGoals() {
+  const calInput = parseInt(document.getElementById('goalCaloriesInput').value);
+  const proInput = parseInt(document.getElementById('goalProteinInput').value);
+
+  if (!isNaN(calInput)) {
+    goals.calories = calInput;
+    localStorage.setItem('goalCalories', calInput);
+  }
+  if (!isNaN(proInput)) {
+    goals.protein = proInput;
+    localStorage.setItem('goalProtein', proInput);
+  }
 
   alert("Goals saved!");
   updateTable();
