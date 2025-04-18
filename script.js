@@ -430,6 +430,66 @@ function saveGoals() {
     localStorage.setItem('goalProtein', proInput);
   }
 
+  function updateFoodTable() {
+  const body = document.getElementById('foodDatabaseBody');
+  body.innerHTML = '';
+  foodDatabase.forEach((food, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${food.name}</td>
+      <td>${food.calories}</td>
+      <td>${food.protein}</td>
+      <td>
+        <button onclick="editFood(${index})">Edit</button>
+        <button onclick="deleteFood(${index})">Delete</button>
+      </td>
+    `;
+    body.appendChild(row);
+  });
+}
+
+function searchDatabase() {
+  const input = document.getElementById('databaseSearchInput').value.toLowerCase();
+  const body = document.getElementById('foodDatabaseBody');
+  body.innerHTML = '';
+
+  foodDatabase
+    .filter(food => food.name.toLowerCase().includes(input))
+    .forEach((food, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${food.name}</td>
+        <td>${food.calories}</td>
+        <td>${food.protein}</td>
+        <td>
+          <button onclick="editFood(${index})">Edit</button>
+          <button onclick="deleteFood(${index})">Delete</button>
+        </td>
+      `;
+      body.appendChild(row);
+    });
+}
+
+function editFood(index) {
+  const food = foodDatabase[index];
+  const newName = prompt("Edit name:", food.name);
+  const newCalories = parseFloat(prompt("Edit calories per 100g:", food.calories));
+  const newProtein = parseFloat(prompt("Edit protein per 100g:", food.protein));
+
+  if (newName && !isNaN(newCalories) && !isNaN(newProtein)) {
+    foodDatabase[index] = {
+      name: newName,
+      calories: newCalories,
+      protein: newProtein
+    };
+    localStorage.setItem('foodDatabase', JSON.stringify(foodDatabase));
+    updateFoodTable();
+    alert("Food updated.");
+  } else {
+    alert("Invalid input.");
+  }
+}
+
   alert("Goals saved!");
   updateTable();
   switchTab({ target: document.querySelector('.tab-btn') }, 'trackerTab');
