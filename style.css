@@ -2,8 +2,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background: black;
-  color: grey;
+  background: #f4f4f4;
+  color: #333;
 }
 
 .tabs {
@@ -14,13 +14,13 @@ body {
 
 .tab-btn {
   padding: 10px 15px;
-  background: orange;
+  background: #3498db;
   border: none;
   cursor: pointer;
 }
 
 .tab-btn.active {
-  background: grey;
+  background: #2c3e50;
   color: white;
 }
 
@@ -39,7 +39,7 @@ table {
 }
 
 table, th, td {
-  border: 1px solid #999;
+  border: 1px solid #ccc;
 }
 
 th, td {
@@ -56,19 +56,18 @@ th, td {
   cursor: pointer;
 }
 
-.search-results {
-  background: #222;
-  border: 1px solid #444;
-  max-height: 150px;
-  overflow-y: auto;
-  margin-bottom: 10px;
+.meal-section {
+  margin-top: 20px;
 }
 
-.search-results div {
+.meal-header {
+  font-weight: bold;
+  background: #3498db;
+  color: white;
   padding: 5px;
-  cursor: pointer;
 }
 
-.search-results div:hover {
-  background: #333;
+.meal-table {
+  width: 100%;
+  margin-top: 10px;
 }
