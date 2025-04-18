@@ -18,26 +18,33 @@ function searchFood() {
   const resultsDiv = document.getElementById('searchResults');
   resultsDiv.innerHTML = '';
 
+  if (!input) return;
+
   const matches = foodDatabase.filter(f => f.name.toLowerCase().includes(input));
 
-  if (matches.length) {
+  if (matches.length > 0) {
     matches.forEach(food => {
       const div = document.createElement('div');
       div.textContent = food.name;
+      div.style.cursor = "pointer";
+      div.style.padding = "5px 0";
       div.onclick = () => {
         document.getElementById('searchInput').value = food.name;
         resultsDiv.innerHTML = '';
       };
       resultsDiv.appendChild(div);
     });
-  } else if (input.length > 2) {
-    const div = document.createElement('div');
-    div.textContent = `Food not found. Click to create "${input}"`;
-    div.onclick = () => {
+  } else if (input.length >= 3) {
+    const addOption = document.createElement('div');
+    addOption.innerHTML = `<strong>Food not found:</strong> Click to add "<em>${input}</em>"`;
+    addOption.style.cursor = "pointer";
+    addOption.style.color = "#007BFF";
+    addOption.style.padding = "5px 0";
+    addOption.onclick = () => {
       document.getElementById('newFoodName').value = input;
       switchTab({ target: document.querySelectorAll('.tab-btn')[1] }, 'createTab');
     };
-    resultsDiv.appendChild(div);
+    resultsDiv.appendChild(addOption);
   }
 }
 
