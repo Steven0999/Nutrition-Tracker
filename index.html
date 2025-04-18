@@ -6,71 +6,55 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab(event, 'trackerTab')">Tracker</button>
     <button class="tab-btn" onclick="switchTab(event, 'createTab')">Create Food</button>
-    <button class="tab-btn" onclick="switchTab(event, 'databaseTab')">Food Database</button>
     <button class="tab-btn" onclick="switchTab(event, 'goalsTab')">Set Goals</button>
   </div>
 
+  <!-- Tracker Tab -->
   <div id="trackerTab" class="tab-content active">
     <h1>Nutrition Tracker</h1>
-
-    <input type="text" id="searchInput" placeholder="Search for food..." oninput="searchFood()" />
-    <div id="searchResults" class="search-results"></div>
-
+    <label>Search Food</label>
+    <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="Search for food" />
+    <div id="searchResults"></div>
     <select id="mealType">
       <option value="Breakfast">Breakfast</option>
       <option value="Lunch">Lunch</option>
       <option value="Dinner">Dinner</option>
       <option value="Snack">Snack</option>
     </select>
-
+    <input type="number" id="quantity" placeholder="Quantity" value="1" />
     <select id="servingType" onchange="toggleCustomWeight()">
-      <option value="100g">Per 100g</option>
-      <option value="portion">Per Portion</option>
-      <option value="custom">Custom (g)</option>
+      <option value="per100g">Per 100g</option>
+      <option value="perPortion">Per Portion</option>
+      <option value="custom">Custom Weight</option>
     </select>
-
-    <input type="number" id="customWeight" placeholder="Custom weight (g)" style="display: none;" />
-    <input type="number" id="quantity" value="1" min="1" placeholder="Quantity" />
-
+    <input type="number" id="customWeight" placeholder="Custom Weight (g)" style="display:none" />
     <button onclick="addEntry()">Add Entry</button>
-    <button class="reset-btn" onclick="resetLog()">Reset Log</button>
 
     <div id="logContainer"></div>
 
-    <div class="totals">
-      <p><strong>Goal:</strong> Calories: <span id="goalCalories">0</span> | Protein: <span id="goalProtein">0</span></p>
-      <p><strong>Total:</strong> Calories: <span id="totalCalories">0</span> | Protein: <span id="totalProtein">0</span></p>
-      <p><strong>Remaining:</strong> Calories: <span id="remainingCalories">0</span> | Protein: <span id="remainingProtein">0</span></p>
-    </div>
+    <button class="reset-btn" onclick="resetLog()">Reset Log</button>
   </div>
 
+  <!-- Create Food Tab -->
   <div id="createTab" class="tab-content">
-    <h2>Create New Food</h2>
+    <h1>Create New Food</h1>
     <input type="text" id="newFoodName" placeholder="Food name" />
-    <input type="number" id="newCalories" placeholder="Calories per 100g/portion" />
-    <input type="number" id="newProtein" placeholder="Protein per 100g/portion" />
-    <button onclick="addFoodAndReturn()">Save & Return</button>
+    <input type="number" id="newCalories" placeholder="Calories per 100g" />
+    <input type="number" id="newProtein" placeholder="Protein per 100g" />
+    <button onclick="addFoodAndReturn()">Save Food</button>
   </div>
 
-  <div id="databaseTab" class="tab-content">
-    <h2>Food Database</h2>
-    <table>
-      <thead>
-        <tr><th>Name</th><th>Calories</th><th>Protein</th><th>Action</th></tr>
-      </thead>
-      <tbody id="foodDatabaseBody"></tbody>
-    </table>
-  </div>
-
+  <!-- Set Goals Tab -->
   <div id="goalsTab" class="tab-content">
-    <h2>Set Daily Goals</h2>
-    <input type="number" id="goalCaloriesInput" placeholder="Calorie Goal" />
-    <input type="number" id="goalProteinInput" placeholder="Protein Goal" />
-    <button onclick="saveGoals()">Save Goals</button>
+    <h1>Set Your Nutrition Goals</h1>
+    <label>Calorie Goal:</label>
+    <input type="number" id="goalCaloriesInput" placeholder="e.g. 2000" />
+    <label>Protein Goal:</label>
+    <input type="number" id="goalProteinInput" placeholder="e.g. 150" />
+    <button onclick="saveGoals()">Confirm Goals</button>
   </div>
 
   <script src="script.js"></script>
