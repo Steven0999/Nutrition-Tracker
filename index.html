@@ -18,6 +18,7 @@
     <button class="tab-btn active" onclick="switchTab(event, 'trackerTab')">Food Tracker</button>
     <button class="tab-btn" onclick="switchTab(event, 'createTab')">Create Food</button>
     <button class="tab-btn" onclick="switchTab(event, 'goalsTab')">Set Daily Goals</button>
+    <button class="tab-btn" onclick="switchTab(event, 'databaseTab')">Database</button>
   </nav>
 
   <!-- Main Content Area -->
@@ -126,6 +127,24 @@
 
     <button onclick="saveGoals()">Save Goals</button>
   </section>
+
+  <!-- DatabaseTab -->
+
+  <div id="databaseTab" class="tab-content">
+  <h2>Food Database</h2>
+  <input type="text" id="databaseSearchInput" placeholder="Search database..." onkeyup="searchDatabase()">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Calories (per 100g)</th>
+        <th>Protein (per 100g)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="foodDatabaseBody"></tbody>
+  </table>
+  </div>
 
   <!-- Footer -->
   <footer>
