@@ -8,8 +8,8 @@
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
+  background-color: black;
+  color: orange;
   padding: 20px;
 }
 
@@ -35,12 +35,12 @@ h1 {
 }
 
 .tab-btn.active {
-  background-color: #4285f4;
-  color: white;
+  background-color: white;
+  color: orange;
 }
 
 .tab-btn:hover {
-  background-color: #ddd;
+  background-color: grey;
 }
 
 /* Tab content */
@@ -82,7 +82,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  background: #fff;
+  background: grey;
 }
 
 th, td {
@@ -92,12 +92,12 @@ th, td {
 }
 
 th {
-  background-color: #4285f4;
+  background-color: grey;
   color: white;
 }
 
 .meal-header {
-  background-color: #e0e0e0;
+  background-color: grey;
   font-weight: bold;
   text-align: center;
 }
@@ -128,15 +128,15 @@ button {
 }
 
 button:hover {
-  background-color: #3367d6;
+  background-color: grey;
 }
 
 button.danger {
-  background-color: #e53935;
+  background-color: red;
 }
 
 button.danger:hover {
-  background-color: #c62828;
+  background-color: red;
 }
 
 /* Form Group */
@@ -160,7 +160,7 @@ button.danger:hover {
 /* Summary Section */
 .summary {
   margin-top: 20px;
-  background: #fff;
+  background: grey;
   padding: 15px;
   border: 1px solid #ccc;
 }
