@@ -383,6 +383,40 @@ function addFoodAndReturn() {
   switchTab({ target: document.querySelector('.tab-btn') }, 'trackerTab');
 }
 
+function startScanner() {
+  const html5QrCode = new Html5Qrcode("reader");
+  html5QrCode.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 250 },
+    async (decodedText) => {
+      html5QrCode.stop();
+      fetchFoodFromBarcode(decodedText);
+    }
+  ).catch(err => {
+    console.error("QR Code scan error:", err);
+    alert("Unable to start scanner. Try again.");
+  });
+}
+
+async function fetchFoodFromBarcode(barcode) {
+  try {
+    const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
+    const data = await response.json();
+
+    if (data.status === 1) {
+      const product = data.product;
+      document.getElementById('newFoodName').value = product.product_name || '';
+      document.getElementById('newCalories').value = product.nutriments["energy-kcal_100g"] || '';
+      document.getElementById('newProtein').value = product.nutriments.proteins_100g || '';
+    } else {
+      alert("Food not found. Please enter manually.");
+    }
+  } catch (error) {
+    console.error("Error fetching product data:", error);
+    alert("There was a problem retrieving the food data.");
+  }
+}
+
 function saveGoals() {
   const calInput = parseInt(document.getElementById('goalCaloriesInput').value);
   const proInput = parseInt(document.getElementById('goalProteinInput').value);
