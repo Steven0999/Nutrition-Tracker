@@ -28,7 +28,7 @@ h1 {
 .tab-btn {
   padding: 10px 20px;
   border: none;
-  background: #eee;
+  background: grey;
   cursor: pointer;
   transition: background 0.3s;
   font-weight: bold;
@@ -60,7 +60,7 @@ h1 {
 }
 
 #searchResults {
-  background-color: #fff;
+  background-color: black;
   border: 1px solid #ccc;
   max-height: 150px;
   overflow-y: auto;
@@ -74,7 +74,7 @@ h1 {
 }
 
 #searchResults div:hover {
-  background-color: #f0f0f0;
+  background-color: grey;
 }
 
 /* Table Styles */
@@ -121,7 +121,7 @@ select {
 button {
   padding: 8px 12px;
   border: none;
-  background-color: #4285f4;
+  background-color: orange;
   color: white;
   cursor: pointer;
   border-radius: 4px;
